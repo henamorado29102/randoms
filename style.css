@@ -1,0 +1,28 @@
+div{
+    color: green;
+}
+
+.container{
+    display: flex;
+    /* justify-content: space-around; */
+}
+
+.cell{
+    width: 50px;
+}
+.cellDate{
+    width: 150px;
+}
+
+.row{
+    border: 0.5px solid gray;
+    text-align: center;
+    display: flex;
+    padding: 5px 0px 5px 0px;
+}
+.pagination{
+    padding: 10px 10px 10px 0px;
+}
+.calcInfo{
+    margin-top: 20px;
+}

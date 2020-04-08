@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <link rel="stylesheet" href="style.css">
+  <title>Hello World!</title>
+
+</head>
+
+<body>
+  <button type="button" id="generate"> generate </button>
+  <button type="button" id="delete"> delete </button>
+  <div class="container">
+    <div>
+      <h4>Numeros del 1 - 50</h4>
+      <div id="numbers1"></div>
+    </div>
+    <div>
+      <h4>Numeros del 1 - 12</h4>
+      <div id="numbers2"></div>
+    </div>
+
+  </div>
+  <div class="pagination">
+    <button type="button" id="next">next</button>
+    <label id="actualPage">11</label>
+    <button type="button" id="preview">preview</button>
+    <input type="number" id="page" />
+    <button type="button" id="go">go</button>
+    <label id="info">Show page 0 of max</label>
+  </div>
+
+  <div class="calcInfo">
+    <button type="button" id="calculate">calcular</button>
+    <h1 id="media">Media: </h1>
+    <h1 id="moda">Moda: </h1>
+  </div>
+
+  <!-- You can also require other files to run in this process -->
+  <script src="./renderer.js"></script>
+  <script src="./app.js"></script>
+</body>
+
+</html>

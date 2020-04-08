@@ -6,7 +6,7 @@ const path = require('path')
 // default window settings
 const defaultProps = {
   width: 700,
-  height: 660,
+  height: 700,
   show: false,
 
   // update for electron V5+
@@ -21,7 +21,7 @@ class Window extends BrowserWindow {
     // calls new BrowserWindow with these props
     super({ ...defaultProps, ...windowSettings })
 
-    this.webContents.openDevTools()
+    //this.webContents.openDevTools()
 
     // load the html and open devtools
     this.loadFile(file)

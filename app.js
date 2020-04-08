@@ -3,11 +3,10 @@
 const DataStore = require("./DataStore");
 
 const numberStore1 = new DataStore({ name: "numbers1" });
-const calculate = new DataStore({ name: "calculate" });
+const calculateStore = new DataStore({ name: "calculate" });
 let page = 1;
 const itemsPage = 10;
-let totalPage = 0;
-
+let totalPage = Math.ceil(numberStore1.getTodos().todos.length / itemsPage);
 drawData();
 
 // create add todo window button
@@ -38,16 +37,18 @@ document.getElementById("generate").addEventListener("click", function() {
   );
 
   numberStore1.addTodo([n1, n2]);
+  totalPage = Math.ceil(numberStore1.getTodos().todos.length / itemsPage);
   drawData();
 });
 
 document.getElementById("delete").addEventListener("click", function() {
   numberStore1.deleteAll();
+  calculateStore.deleteAll();
   drawData();
 });
 
 document.getElementById("next").addEventListener("click", function() {
-  if (page < Math.ceil(numberStore1.store.todos.length / itemsPage)) {
+  if (page < totalPage) {
     page++;
     drawData();
   }
@@ -60,10 +61,24 @@ document.getElementById("preview").addEventListener("click", function() {
   }
 });
 
+document.getElementById("go").addEventListener("click", function() {
+  let p = document.getElementById("page").value;
+  if (p > 0 && p <= totalPage){
+    page = p;
+    drawData();
+  }
+
+
+});
+
 document.getElementById("calculate").addEventListener("click", function() {
   const todos = numberStore1.getTodos().todos;
   let sum = 0;
   let moda = [];
+
+  let sum_b = 0;
+  let moda_b = [];
+
   todos.forEach(element => {
     element[0].forEach(cell => {
       sum += cell;
@@ -71,8 +86,8 @@ document.getElementById("calculate").addEventListener("click", function() {
     });
     element[1].forEach((cell, key) => {
       if (key < 2) {
-        sum += cell;
-        moda[cell] = moda[cell] ? moda[cell] + 1 : 1;
+        sum_b += cell;
+        moda_b[cell] = moda_b[cell] ? moda_b[cell] + 1 : 1;
       }
     });
   });
@@ -85,32 +100,32 @@ document.getElementById("calculate").addEventListener("click", function() {
       keyNumber = key;
     }
   });
-  let media = sum / (todos.length * 7);
+
+  maxNumber = 0;
+  let keyNumber_b = 0;
+  moda_b.forEach((element, key) => {
+    if (element > maxNumber) {
+      maxNumber = element;
+      keyNumber_b = key;
+    }
+  });
+
+  let media = Math.round(sum / (todos.length * 5));
+  let media_b = Math.round(sum_b / (todos.length * 2));
   let f = new Date();
-  calculate.addTodo([
-    media,
-    keyNumber,
-    f.getDate() +
-      "/" +
-      (f.getMonth() + 1) +
-      "/" +
-      f.getFullYear() +
-      " " +
-      f.getHours() +
-      ":" +
-      f.getMinutes() +
-      ":" +
-      f.getSeconds()
+  calculateStore.addTodo([media,keyNumber, media_b, keyNumber_b,
+    f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() + " " + f.getHours() + ":" + f.getMinutes() + ":" + f.getSeconds()
   ]);
 
   document.getElementById("media").innerText = `Media: ${media}`;
   document.getElementById("moda").innerText = `Moda: ${keyNumber}`;
+  document.getElementById("media_b").innerText = `Media: ${media_b}`;
+  document.getElementById("moda_b").innerText = `Moda: ${keyNumber_b}`;
 });
 
 function drawData() {
-  totalPage = Math.ceil(numberStore1.getTodos().todos.length / itemsPage);
   document.getElementById("actualPage").innerText = page;
-  document.getElementById("info").innerText = `Show ${page} of ${totalPage}`;
+  document.getElementById("info").innerText = `Show ${page} of ${totalPage} Pages`;
 
   const updatedTodos = numberStore1
     .getTodos()

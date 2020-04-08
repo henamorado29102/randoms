@@ -12,44 +12,77 @@
 </head>
 
 <body>
-  <button type="button" id="generate"> generate </button>
-  <button type="button" id="delete"> delete </button>
-  <div class="container">
-    <div>
-      <h4>Numeros del 1 - 50</h4>
-      <div id="numbers1"></div>
-    </div>
-    <div>
-      <h4>Numeros del 1 - 12</h4>
-      <div id="numbers2"></div>
+  <div class="sections">
+    <div class="sectionGenerate">
+      <button type="button" id="generate"> Generate </button>
+      <button type="button" id="delete"> Delete </button>
+      <div class="dataTable">
+        <div>
+          <h4>Números aleatorios del 1 - 50</h4>
+          <div class="row headerTable">
+            <div class="cell">n1</div>
+            <div class="cell">n2</div>
+            <div class="cell">n3</div>
+            <div class="cell">n4</div>
+            <div class="cell">n5</div>
+          </div>
+
+          <div id="numbers1"></div>
+        </div>
+        <div>
+          <h4>Números aleatorios del 1 - 12</h4>
+          <div class="row headerTable">
+            <div class="cell">n1</div>
+            <div class="cell">n2</div>
+            <div class="cell">fecha</div>
+          </div>
+          <div id="numbers2"></div>
+        </div>
+      </div>
+      <div class="pagination">
+        <button type="button" id="preview">preview</button>
+        <label id="actualPage">11</label>
+        <button type="button" id="next">next</button>
+        <input type="number" id="page" />
+        <button type="button" id="go">go</button>
+        <label id="info">Show page 0 of max pages</label>
+      </div>
     </div>
 
-  </div>
-  <div class="pagination">
-    <button type="button" id="preview">preview</button>
-    <label id="actualPage">11</label>
-    <button type="button" id="next">next</button>
-    <input type="number" id="page" />
-    <button type="button" id="go">go</button>
-    <label id="info">Show page 0 of max pages</label>
-  </div>
-
-  <div class="calcInfo">
-    <button type="button" id="calculate">calcular</button>
     <div class="sectionCalculate">
-      <div class="areaLeft">
-        <h1>1 - 50</h1>
-        <h3 id="media">Media: </h3>
-        <h3 id="moda">Moda: </h3>
+      <button id="calculate">Calculate</button>
+      <button type="button" id="delete1"> Delete </button>
+      <div class="dataTable">
+        <div>
+          <h4>1 - 50</h4>
+          <div class="row headerTable">
+            <div class="cell">media 1</div>
+            <div class="cell">moda 1</div>
+          </div>
+          <div id="calculate1"></div>
+        </div>
+        <div>
+          <h4>1 - 12</h4>
+          <div class="row headerTable">
+            <div class="cell">media 2</div>
+            <div class="cell">moda 2</div>
+            <div class="cell">fecha</div>
+          </div>
+          <div id="calculate2"></div>
+        </div>
       </div>
-      <div>
-        <h1>1 - 12</h1>
-        <h3 id="media_b">Media: </h3>
-        <h3 id="moda_b">Moda: </h3>
+      <div class="pagination">
+        <button type="button" id="preview1">preview</button>
+        <label id="actualPage1">11</label>
+        <button type="button" id="next1">next</button>
+        <input type="number" id="page1" />
+        <button type="button" id="go1">go</button>
+        <label id="info1">Show page 0 of max pages</label>
       </div>
-    </div>
 
+    </div>
   </div>
+
 
   <!-- You can also require other files to run in this process -->
   <script src="./renderer.js"></script>

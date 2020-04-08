@@ -5,8 +5,8 @@ const path = require('path')
 
 // default window settings
 const defaultProps = {
-  width: 700,
-  height: 700,
+  width: 1100,
+  height: 550,
   show: false,
 
   // update for electron V5+

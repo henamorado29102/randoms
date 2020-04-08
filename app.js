@@ -5,9 +5,13 @@ const DataStore = require("./DataStore");
 const numberStore1 = new DataStore({ name: "numbers1" });
 const calculateStore = new DataStore({ name: "calculate" });
 let page = 1;
+let page1 = 1;
 const itemsPage = 10;
+const itemsPage1 = 10;
 let totalPage = Math.ceil(numberStore1.getTodos().todos.length / itemsPage);
+let totalPage1 = Math.ceil(calculateStore.getTodos().todos.length / itemsPage);
 drawData();
+drawCalculateData()
 
 // create add todo window button
 document.getElementById("generate").addEventListener("click", function() {
@@ -42,9 +46,11 @@ document.getElementById("generate").addEventListener("click", function() {
 });
 
 document.getElementById("delete").addEventListener("click", function() {
-  numberStore1.deleteAll();
-  calculateStore.deleteAll();
-  drawData();
+  var opcion = confirm("Vas a Eliminar todos los registros. Estas seguro?");
+  if (opcion == true) {
+    numberStore1.deleteAll();
+    drawData();
+  }
 });
 
 document.getElementById("next").addEventListener("click", function() {
@@ -63,12 +69,12 @@ document.getElementById("preview").addEventListener("click", function() {
 
 document.getElementById("go").addEventListener("click", function() {
   let p = document.getElementById("page").value;
-  if (p > 0 && p <= totalPage){
+  if (p > 0 && p <= totalPage) {
     page = p;
     drawData();
+  }else{
+    document.getElementById("page").value = page;
   }
-
-
 });
 
 document.getElementById("calculate").addEventListener("click", function() {
@@ -113,19 +119,66 @@ document.getElementById("calculate").addEventListener("click", function() {
   let media = Math.round(sum / (todos.length * 5));
   let media_b = Math.round(sum_b / (todos.length * 2));
   let f = new Date();
-  calculateStore.addTodo([media,keyNumber, media_b, keyNumber_b,
-    f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear() + " " + f.getHours() + ":" + f.getMinutes() + ":" + f.getSeconds()
-  ]);
-
-  document.getElementById("media").innerText = `Media: ${media}`;
-  document.getElementById("moda").innerText = `Moda: ${keyNumber}`;
-  document.getElementById("media_b").innerText = `Media: ${media_b}`;
-  document.getElementById("moda_b").innerText = `Moda: ${keyNumber_b}`;
+  calculateStore.addTodo([[
+    media,
+    keyNumber],
+    [media_b,
+    keyNumber_b,
+    f.getDate() +
+      "/" +
+      (f.getMonth() + 1) +
+      "/" +
+      f.getFullYear() +
+      " " +
+      f.getHours() +
+      ":" +
+      f.getMinutes() +
+      ":" +
+      f.getSeconds()
+  ]]);
+  totalPage1 = Math.ceil(calculateStore.getTodos().todos.length / itemsPage);
+  drawCalculateData();
 });
+
+document.getElementById("delete1").addEventListener("click", function() {
+  var opcion = confirm("Vas a Eliminar todos los registros. Estas seguro?");
+  if (opcion == true) {
+    calculateStore.deleteAll();
+    drawCalculateData();
+  }
+});
+
+document.getElementById("next1").addEventListener("click", function() {
+  if (page1 < totalPage1) {
+    page1++;
+    drawCalculateData();
+  }
+});
+
+document.getElementById("preview1").addEventListener("click", function() {
+  if (page1 > 1) {
+    page1--;
+    drawCalculateData();
+  }
+});
+
+document.getElementById("go1").addEventListener("click", function() {
+  let p = document.getElementById("page1").value;
+  if (p > 0 && p <= totalPage1) {
+    page1 = p;
+    drawCalculateData();
+  }else{
+    document.getElementById("page1").value = page;
+  }
+});
+
 
 function drawData() {
   document.getElementById("actualPage").innerText = page;
-  document.getElementById("info").innerText = `Show ${page} of ${totalPage} Pages`;
+  document.getElementById("page").value = page;
+  document.getElementById(
+    "info"
+  ).innerText = `Show ${page} of ${totalPage} Pages`;
 
   const updatedTodos = numberStore1
     .getTodos()
@@ -158,6 +211,47 @@ function drawData() {
       div2.appendChild(divCell1);
     });
     numbers2.appendChild(div2);
+  });
+}
+
+function drawCalculateData(){
+  document.getElementById("actualPage1").innerText = page1;
+  document.getElementById("page1").value = page1;
+  document.getElementById(
+    "info1"
+  ).innerText = `Show ${page1} of ${totalPage1} Pages`;
+
+  const updatedTodos = calculateStore
+    .getTodos()
+    .todos.slice((page - 1) * itemsPage, (page - 1) * itemsPage + itemsPage);
+  const calculate1 = document.getElementById("calculate1");
+  const calculate2 = document.getElementById("calculate2");
+  calculate1.innerHTML = "";
+  calculate2.innerHTML = "";
+  let contador = 1;
+
+  updatedTodos.forEach(element => {
+    const div1 = document.createElement("div");
+    div1.className = "row";
+    element[0].forEach(cell => {
+      let divCell1 = document.createElement("div");
+      divCell1.innerHTML = cell;
+      divCell1.className = "cell";
+      divCell1.name = contador++;
+      div1.appendChild(divCell1);
+    });
+    calculate1.appendChild(div1);
+
+    const div2 = document.createElement("div");
+    div2.className = "row";
+    element[1].forEach((cell, key) => {
+      let divCell1 = document.createElement("div");
+      divCell1.innerHTML = cell;
+      divCell1.className = key == 2 ? "cellDate" : "cell";
+      divCell1.name = contador++;
+      div2.appendChild(divCell1);
+    });
+    calculate2.appendChild(div2);
   });
 }
 

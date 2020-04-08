@@ -1,21 +1,36 @@
+body{
+    background-color: #272727;
+}
+.sections{
+    display: flex;
+    justify-content: space-around;
+}
+
+.sectionGenerate{
+    margin-right: 20px;
+}
+
+
+
 div{
     color: green;
 }
 
-.container{
+.dataTable{
     display: flex;
-    /* justify-content: space-around; */
+    height: 380px;
 }
 
-.sectionCalculate{
-    display: flex;
-}
+
 
 .cell{
-    width: 50px;
+    width: 60px;
 }
 .cellDate{
-    width: 150px;
+    width: 140px;
+}
+.headerTable div{
+    color: chocolate;
 }
 
 .row{
@@ -27,10 +42,17 @@ div{
 .pagination{
     padding: 10px 10px 10px 0px;
 }
-.calcInfo{
-    margin-top: 20px;
-}
+
 
 .areaLeft{
     margin-right: 100px;
+}
+
+button{
+    width: 70px;
+}
+
+input{
+    width: 70px;
+    text-align: center;
 }
